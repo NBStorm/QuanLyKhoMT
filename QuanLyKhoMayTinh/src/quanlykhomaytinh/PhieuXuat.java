@@ -5,6 +5,8 @@
  */
 package quanlykhomaytinh;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,8 +43,9 @@ public class PhieuXuat extends javax.swing.JFrame {
         list2=PhieuXuatController.getPX();
         LoadDateToTablePX();
         initTable3();
-        //list3=CtpxController.getCTPX();
-        //LoadDateToTableCTPX();
+        list3=CtpxController.getCTPX();
+        LoadDateToTableCTPX();
+        
     }
     private void initTable1(){
         model =new DefaultTableModel();
@@ -178,7 +181,7 @@ public class PhieuXuat extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -202,8 +205,18 @@ public class PhieuXuat extends javax.swing.JFrame {
         });
 
         btnUpdate.setText("Sửa");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Xoá");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         txtkhachhang.setColumns(20);
         txtkhachhang.setRows(5);
@@ -296,8 +309,18 @@ public class PhieuXuat extends javax.swing.JFrame {
         });
 
         btnUpdate1.setText("Sửa");
+        btnUpdate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdate1ActionPerformed(evt);
+            }
+        });
 
         btnDelete1.setText("Xoá");
+        btnDelete1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelete1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -422,6 +445,11 @@ public class PhieuXuat extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCTPX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblCTPXMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblCTPX);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -486,7 +514,12 @@ public class PhieuXuat extends javax.swing.JFrame {
 
         jButton2.setText("Export");
 
-        jButton3.setText("Back");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -498,7 +531,7 @@ public class PhieuXuat extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jButton2)
                 .addGap(37, 37, 37)
-                .addComponent(jButton3)
+                .addComponent(btnBack)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -507,7 +540,7 @@ public class PhieuXuat extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(btnBack)
                     .addComponent(jButton1))
                 .addGap(67, 67, 67))
         );
@@ -700,14 +733,13 @@ public class PhieuXuat extends javax.swing.JFrame {
                PreparedStatement st=conn.prepareStatement(sql);
                st.setString(1, txtctpx.getText());
                st.setString(2, txtmapx_ctpx.getText());
-                st.setString(3, txtid.getText());
-                st.setString(4, txtamount.getText());
-                st.setString(5, txttongtien_ctpx.getText());
+               st.setString(3, txtid.getText());
+               st.setString(4, txtamount.getText());
+               st.setString(5, txttongtien_ctpx.getText());
            
                 row=st.executeUpdate();
            
                 JOptionPane.showMessageDialog(this,"Đã thêm thành công");
-           
            
                 sql="update SANPHAM set Amount='"+soluongconlai+"' where ID='"+id+"'";
                 Statement stmt=conn.createStatement();
@@ -732,6 +764,190 @@ public class PhieuXuat extends javax.swing.JFrame {
        }
         
     }//GEN-LAST:event_btnAdd1ActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        if(txtmapx.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"Nhập Mã phiếu xuất");
+            txtmapx.requestFocus();return;
+        }
+        try{
+            Connection conn = DBConnection.getConnection();
+            String sql="update PHIEUXUAT set Manv=? ,KhachHang=? where Mapx=?";
+            PreparedStatement st= conn.prepareStatement(sql);
+            
+            st.setString(1, txtmanv.getText());
+            st.setString(2, txtkhachhang.getText());
+            st.setString(3, txtmapx.getText());
+            st.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Sửa thành công");
+            conn.close();
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+            JOptionPane.showMessageDialog(this,"Errors");
+        }
+        list2=PhieuXuatController.getPX();
+        LoadDateToTablePX();     
+    }//GEN-LAST:event_btnUpdateActionPerformed
+    private int GetAmountHientai(String mactpx) throws SQLException{
+        int amount=0;
+        String cautruyvan = "select * from CTPHIEUXUAT where MaCTPX='" + mactpx + "'";
+        Connection conn=DBConnection.getConnection();
+        Statement st=conn.createStatement();
+        ResultSet rs = st.executeQuery(cautruyvan);
+        try {
+            if (rs.next()) {
+                amount = rs.getInt("Amount");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        return amount;
+        
+    }
+    private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
+        if(txtmapx.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"Nhập Mã phiếu xuất");
+            txtmapx.requestFocus();return;
+        }
+        try{
+            Connection conn = DBConnection.getConnection();
+            int sltrongkho=GetPreAmount(txtid.getText());
+            int slhientai=GetAmountHientai(txtctpx.getText());
+            String id=txtid.getText();
+            String mapx=txtmapx_ctpx.getText();
+            String sql="update CTPHIEUXUAT set ID=? ,Amount=?,Tongtien=? where MaCTPX=?";
+            PreparedStatement st= conn.prepareStatement(sql);
+            
+            st.setString(1, txtid.getText());
+            st.setString(2, txtamount.getText());
+            st.setString(3, txttongtien_ctpx.getText());
+            st.setString(4, txtctpx.getText());
+            st.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Sửa thành công");
+            
+            
+            int slmoi=Integer.valueOf(txtamount.getText());
+            int soluongconlai=sltrongkho+slhientai-slmoi;
+            sql="update SANPHAM set Amount='"+soluongconlai+"' where ID='"+id+"'";
+                Statement stmt=conn.createStatement();
+                stmt.executeUpdate(sql);
+                list1=MnProductController.getAllMnProduct();
+                LoadDateToTableMP();
+            
+            conn.close();
+            list3=CtpxController.getCTPX();
+            LayDuLieuChiTietPhieuXuat(mapx);
+            SetTongTien(mapx);
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+            JOptionPane.showMessageDialog(this,"Errors");
+        }
+        
+    }//GEN-LAST:event_btnUpdate1ActionPerformed
+    
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if(txtmapx.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"Nhập Mã phiếu xuất");
+            txtmapx.requestFocus();return;
+        }
+        if(JOptionPane.showConfirmDialog(this,"Có muốn xoá phiếu xuất có mã "+
+                   txtmapx.getText(),"Confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION){
+               return;
+        }
+        try{
+            Connection conn = DBConnection.getConnection();
+            
+            String sql="delete from PHIEUXUAT where Mapx=?";
+            String ktra="select count(MaCTPX) as SoChiTietPhieuXuat from PHIEUXUAT,CTPHIEUXUAT where PHIEUXUAT.Mapx=CTPHIEUXUAT.Mapx "
+                    + "and PHIEUXUAT.Mapx=?";
+            PreparedStatement st= conn.prepareStatement(ktra);
+            st.setString(1, txtmapx.getText());
+            ResultSet rs=st.executeQuery();
+            
+            if(rs.next()){
+                if(rs.getInt("SoChiTietPhieuXuat")==0){
+                    PreparedStatement st1= conn.prepareStatement(sql);
+                    st1.setString(1, txtmapx.getText());
+                    st1.executeUpdate();
+                    JOptionPane.showMessageDialog(this,"Xoá thành công");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"Còn Chi tiết phiếu xuất");
+                }
+            }
+            conn.close();
+            list2=PhieuXuatController.getPX();
+            LoadDateToTablePX();
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+            JOptionPane.showMessageDialog(this,"Errors");
+        }
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tblCTPXMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTPXMousePressed
+        int selectedRow=tblCTPX.getSelectedRow();
+        
+        if(selectedRow>=0){
+            
+            ChiTietPhieuXuat ChiTietPhieuXuat=list3.get(selectedRow);
+            txtctpx.setText(ChiTietPhieuXuat.getMactpx());
+            txtid.setText(ChiTietPhieuXuat.getId());
+            txtamount.setText(String.valueOf(ChiTietPhieuXuat.getAmount()));
+            txttongtien_ctpx.setText(String.valueOf(ChiTietPhieuXuat.getTongtien()));   
+        }
+    }//GEN-LAST:event_tblCTPXMousePressed
+
+    private void btnDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete1ActionPerformed
+        if(txtctpx.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"Nhập Mã chi tiết phiếu xuất");
+            txtctpx.requestFocus();return;
+        }
+        if(JOptionPane.showConfirmDialog(this,"Có muốn xoá chi tiết phiếu xuất có mã "+
+                   txtctpx.getText(),"Confirmation",JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION){
+               return;
+        }
+        try{
+            Connection conn = DBConnection.getConnection();
+            int sltrongkho=GetPreAmount(txtid.getText());
+            int slhientai=Integer.valueOf(txtamount.getText());
+            String mapx=txtmapx_ctpx.getText();
+            String id=txtid.getText();
+            String sql="delete from CTPHIEUXUAT where MaCTPX=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setString(1, txtctpx.getText());
+            st.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Xoá thành công");
+            int slmoi=sltrongkho+slhientai;
+            sql="update SANPHAM set Amount='"+slmoi+"' where ID='"+id+"'";
+                Statement stmt=conn.createStatement();
+                stmt.executeUpdate(sql);
+                list1=MnProductController.getAllMnProduct();
+                LoadDateToTableMP();
+            
+            conn.close();
+            list3=CtpxController.getCTPX();
+            LayDuLieuChiTietPhieuXuat(mapx);
+            SetTongTien(mapx);
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+            JOptionPane.showMessageDialog(this,"Errors");
+        }
+    }//GEN-LAST:event_btnDelete1ActionPerformed
+    
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        AdminView adv=new AdminView();
+        adv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -771,13 +987,13 @@ public class PhieuXuat extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAdd1;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDelete1;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdate1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
