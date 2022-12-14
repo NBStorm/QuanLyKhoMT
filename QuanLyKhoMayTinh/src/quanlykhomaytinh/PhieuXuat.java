@@ -187,6 +187,7 @@ public class PhieuXuat extends javax.swing.JFrame {
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Phiếu Xuất");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 

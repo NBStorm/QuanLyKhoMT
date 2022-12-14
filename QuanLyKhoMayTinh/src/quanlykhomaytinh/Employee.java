@@ -91,7 +91,6 @@ public class Employee extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
@@ -263,7 +262,7 @@ public class Employee extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -288,14 +287,6 @@ public class Employee extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnDelete);
-
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnBack);
 
         jMenu1.setText("Chức năng");
 
@@ -521,12 +512,6 @@ public class Employee extends javax.swing.JFrame {
         clean();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        AdminView adv=new AdminView();
-        adv.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnBackActionPerformed
-
     private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
         Product pro=new Product();
         pro.setVisible(true);
@@ -583,7 +568,6 @@ public class Employee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PhoneNB;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
