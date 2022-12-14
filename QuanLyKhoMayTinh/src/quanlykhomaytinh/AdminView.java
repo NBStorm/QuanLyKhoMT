@@ -47,7 +47,7 @@ public class AdminView extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 204, 255));
 
         btnNK.setBackground(new java.awt.Color(153, 153, 255));
-        btnNK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/sanpham.png"))); // NOI18N
+        btnNK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/kho.png"))); // NOI18N
         btnNK.setText("Nhập Kho");
         btnNK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,6 +55,7 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        btnDX.setBackground(new java.awt.Color(153, 153, 255));
         btnDX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/thoat.png"))); // NOI18N
         btnDX.setText("Đăng Xuất");
         btnDX.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +64,8 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
-        btnXK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/hoadon.png"))); // NOI18N
+        btnXK.setBackground(new java.awt.Color(153, 153, 255));
+        btnXK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/xuat.png"))); // NOI18N
         btnXK.setText("Xuất Kho");
         btnXK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,6 +73,7 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        btnLE.setBackground(new java.awt.Color(153, 153, 255));
         btnLE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/nhanvien.png"))); // NOI18N
         btnLE.setText("List Of Employee");
         btnLE.addActionListener(new java.awt.event.ActionListener() {
