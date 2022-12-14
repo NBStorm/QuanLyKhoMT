@@ -34,15 +34,20 @@ public class AdminView extends javax.swing.JFrame {
         btnXK = new javax.swing.JButton();
         btnLE = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Admin Menu");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel3.setBackground(new java.awt.Color(204, 204, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 51, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Menu Admin");
 
         jPanel4.setBackground(new java.awt.Color(0, 204, 255));
 
+        btnNK.setBackground(new java.awt.Color(153, 153, 255));
+        btnNK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/sanpham.png"))); // NOI18N
         btnNK.setText("Nhập Kho");
         btnNK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +55,7 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        btnDX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/thoat.png"))); // NOI18N
         btnDX.setText("Đăng Xuất");
         btnDX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +63,7 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        btnXK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/hoadon.png"))); // NOI18N
         btnXK.setText("Xuất Kho");
         btnXK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +71,7 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        btnLE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/nhanvien.png"))); // NOI18N
         btnLE.setText("List Of Employee");
         btnLE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +176,7 @@ public class AdminView extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
