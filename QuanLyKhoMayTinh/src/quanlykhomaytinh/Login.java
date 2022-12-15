@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public static int quyen;
     private void btnDnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDnActionPerformed
         if(txtUser.getText().equals("")){
             JOptionPane.showMessageDialog(this,"Nhập User ");
@@ -204,13 +204,13 @@ public class Login extends javax.swing.JFrame {
             if(rs.next()){
                 JOptionPane.showMessageDialog(this,"Đăng nhập thành công");
                 if(cv==true){
-                    AdminView adv=new AdminView();
-                    adv.setVisible(true);
+                    quyen=1;
+                    Main.adv.setVisible(true);
                     this.dispose();
                 }
                 else{
-                    NhanVienView nvv=new NhanVienView();
-                    nvv.setVisible(true);
+                    quyen=0;
+                    Main.nvv.setVisible(true);
                     this.dispose();
                 }
                 

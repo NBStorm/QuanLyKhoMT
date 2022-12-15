@@ -5,8 +5,13 @@
  */
 package quanlykhomaytinh;
 
+import java.awt.Desktop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import static quanlykhomaytinh.Login.quyen;
 
 /**
  *
@@ -185,6 +196,10 @@ public class PhieuXuat extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jRadioButtonMenuItem5 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phiếu Xuất");
@@ -565,7 +580,38 @@ public class PhieuXuat extends javax.swing.JFrame {
         });
         jMenu1.add(jRadioButtonMenuItem2);
 
+        jRadioButtonMenuItem3.setSelected(true);
+        jRadioButtonMenuItem3.setText("Nhân Viên");
+        jRadioButtonMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem3);
+
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("File");
+
+        jRadioButtonMenuItem5.setSelected(true);
+        jRadioButtonMenuItem5.setText("Export Phiếu Xuất");
+        jRadioButtonMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jRadioButtonMenuItem5);
+
+        jRadioButtonMenuItem4.setSelected(true);
+        jRadioButtonMenuItem4.setText("Export CT Phiếu Xuất");
+        jRadioButtonMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jRadioButtonMenuItem4);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -956,6 +1002,108 @@ public class PhieuXuat extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jRadioButtonMenuItem2ActionPerformed
+
+    private void jRadioButtonMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem3ActionPerformed
+        if(quyen==1){
+            Employee epl=new Employee();
+            epl.setVisible(true);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Bạn không có quyền này");
+        }
+    }//GEN-LAST:event_jRadioButtonMenuItem3ActionPerformed
+
+    public void openFile(String file){
+        try{
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        }catch(IOException ioe){
+            System.out.println(ioe);
+        }
+    }
+    
+    private void jRadioButtonMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem5ActionPerformed
+        try{
+           JFileChooser jFileChooser = new JFileChooser();
+           jFileChooser.showSaveDialog(this);
+           File saveFile = jFileChooser.getSelectedFile();
+           
+           if(saveFile != null){
+               saveFile = new File(saveFile.toString()+".xlsx");
+               XSSFWorkbook wb = new XSSFWorkbook();
+               XSSFSheet sheet =wb.createSheet("Danh sách nhân viên");
+               
+               XSSFRow rowCol = sheet.createRow(0);
+               for(int i=0;i<tblPX.getColumnCount();i++){
+                   XSSFCell cell =rowCol.createCell(i);
+                   cell.setCellValue(tblPX.getColumnName(i));
+               }
+               
+               for(int j=0;j<tblPX.getRowCount();j++){
+                   XSSFRow row = sheet.createRow(j+1);
+                   for(int k=0;k<tblPX.getColumnCount();k++){
+                       XSSFCell cell = row.createCell(k);
+                       if(tblPX.getValueAt(j, k)!=null){
+                           cell.setCellValue(tblPX.getValueAt(j, k).toString());
+                       }
+                   }
+               }
+               FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+               wb.write(out);
+               wb.close();
+               out.close();
+               openFile(saveFile.toString());
+           }else{
+               JOptionPane.showMessageDialog(null,"Error al generar archivo");
+           }
+       }catch(FileNotFoundException e){
+           System.out.println(e);
+       }catch(IOException io){
+           System.out.println(io);
+       }
+    }//GEN-LAST:event_jRadioButtonMenuItem5ActionPerformed
+
+    private void jRadioButtonMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem4ActionPerformed
+        try{
+           JFileChooser jFileChooser = new JFileChooser();
+           jFileChooser.showSaveDialog(this);
+           File saveFile = jFileChooser.getSelectedFile();
+           
+           if(saveFile != null){
+               saveFile = new File(saveFile.toString()+".xlsx");
+               XSSFWorkbook wb = new XSSFWorkbook();
+               XSSFSheet sheet =wb.createSheet("Danh sách nhân viên");
+               
+               XSSFRow rowCol = sheet.createRow(0);
+               for(int i=0;i<tblCTPX.getColumnCount();i++){
+                   XSSFCell cell =rowCol.createCell(i);
+                   cell.setCellValue(tblCTPX.getColumnName(i));
+               }
+               
+               for(int j=0;j<tblCTPX.getRowCount();j++){
+                   XSSFRow row = sheet.createRow(j+1);
+                   for(int k=0;k<tblCTPX.getColumnCount();k++){
+                       XSSFCell cell = row.createCell(k);
+                       if(tblCTPX.getValueAt(j, k)!=null){
+                           cell.setCellValue(tblCTPX.getValueAt(j, k).toString());
+                       }
+                   }
+               }
+               FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+               wb.write(out);
+               wb.close();
+               out.close();
+               openFile(saveFile.toString());
+           }else{
+               JOptionPane.showMessageDialog(null,"Error al generar archivo");
+           }
+       }catch(FileNotFoundException e){
+           System.out.println(e);
+       }catch(IOException io){
+           System.out.println(io);
+       }
+    }//GEN-LAST:event_jRadioButtonMenuItem4ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1013,6 +1161,7 @@ public class PhieuXuat extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1023,6 +1172,9 @@ public class PhieuXuat extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

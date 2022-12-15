@@ -5,13 +5,23 @@
  */
 package quanlykhomaytinh;
 
-import java.awt.event.WindowEvent;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -96,6 +106,8 @@ public class Employee extends javax.swing.JFrame {
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        btnExport = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nhân viên");
@@ -319,6 +331,19 @@ public class Employee extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setText("File");
+
+        btnExport.setSelected(true);
+        btnExport.setText("Export");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnExport);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -530,6 +555,56 @@ public class Employee extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jRadioButtonMenuItem3ActionPerformed
 
+    public void openFile(String file){
+        try{
+            File path = new File(file);
+            Desktop.getDesktop().open(path);
+        }catch(IOException ioe){
+            System.out.println(ioe);
+        }
+    }
+    
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        try{
+           JFileChooser jFileChooser = new JFileChooser();
+           jFileChooser.showSaveDialog(this);
+           File saveFile = jFileChooser.getSelectedFile();
+           
+           if(saveFile != null){
+               saveFile = new File(saveFile.toString()+".xlsx");
+               XSSFWorkbook wb = new XSSFWorkbook();
+               XSSFSheet sheet =wb.createSheet("Danh sách nhân viên");
+               
+               XSSFRow rowCol = sheet.createRow(0);
+               for(int i=0;i<tblEmployee.getColumnCount();i++){
+                   XSSFCell cell =rowCol.createCell(i);
+                   cell.setCellValue(tblEmployee.getColumnName(i));
+               }
+               
+               for(int j=0;j<tblEmployee.getRowCount();j++){
+                   XSSFRow row = sheet.createRow(j+1);
+                   for(int k=0;k<tblEmployee.getColumnCount();k++){
+                       XSSFCell cell = row.createCell(k);
+                       if(tblEmployee.getValueAt(j, k)!=null){
+                           cell.setCellValue(tblEmployee.getValueAt(j, k).toString());
+                       }
+                   }
+               }
+               FileOutputStream out = new FileOutputStream(new File(saveFile.toString()));
+               wb.write(out);
+               wb.close();
+               out.close();
+               openFile(saveFile.toString());
+           }else{
+               JOptionPane.showMessageDialog(null,"Error al generar archivo");
+           }
+       }catch(FileNotFoundException e){
+           System.out.println(e);
+       }catch(IOException io){
+           System.out.println(io);
+       }
+    }//GEN-LAST:event_btnExportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -569,6 +644,7 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JLabel PhoneNB;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JRadioButtonMenuItem btnExport;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -581,6 +657,7 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
