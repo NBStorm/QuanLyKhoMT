@@ -285,7 +285,7 @@ public class Product extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 255, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnAdd.setText("Thêm");
