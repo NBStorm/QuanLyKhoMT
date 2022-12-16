@@ -22,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import static quanlykhomaytinh.Login.quyen;
 
 /**
  *
@@ -106,6 +107,7 @@ public class Employee extends javax.swing.JFrame {
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnExport = new javax.swing.JRadioButtonMenuItem();
 
@@ -328,6 +330,15 @@ public class Employee extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jRadioButtonMenuItem3);
+
+        jRadioButtonMenuItem4.setSelected(true);
+        jRadioButtonMenuItem4.setText("Menu");
+        jRadioButtonMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -605,6 +616,19 @@ public class Employee extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnExportActionPerformed
 
+    private void jRadioButtonMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem4ActionPerformed
+        if(quyen==1){
+            AdminView adv=new AdminView();
+            adv.setVisible(true);
+            this.dispose();
+        }
+        else{
+            NhanVienView nvv=new NhanVienView();
+            nvv.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jRadioButtonMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -665,6 +689,7 @@ public class Employee extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton rdoAdmin;

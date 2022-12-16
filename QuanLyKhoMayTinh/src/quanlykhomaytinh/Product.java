@@ -104,6 +104,7 @@ public class Product extends javax.swing.JFrame {
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem5 = new javax.swing.JRadioButtonMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
 
@@ -362,6 +363,15 @@ public class Product extends javax.swing.JFrame {
         });
         jMenu1.add(jRadioButtonMenuItem3);
 
+        jRadioButtonMenuItem5.setSelected(true);
+        jRadioButtonMenuItem5.setText("Menu");
+        jRadioButtonMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem5);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("File");
@@ -601,6 +611,19 @@ public class Product extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jRadioButtonMenuItem4ActionPerformed
 
+    private void jRadioButtonMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem5ActionPerformed
+        if(quyen==1){
+            AdminView adv=new AdminView();
+            adv.setVisible(true);
+            this.dispose();
+        }
+        else{
+            NhanVienView nvv=new NhanVienView();
+            nvv.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jRadioButtonMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -663,6 +686,7 @@ public class Product extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProducts;
     private javax.swing.JTextField txtAmount;

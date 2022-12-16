@@ -197,6 +197,7 @@ public class PhieuXuat extends javax.swing.JFrame {
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem3 = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem6 = new javax.swing.JRadioButtonMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jRadioButtonMenuItem5 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem4 = new javax.swing.JRadioButtonMenuItem();
@@ -588,6 +589,15 @@ public class PhieuXuat extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jRadioButtonMenuItem3);
+
+        jRadioButtonMenuItem6.setSelected(true);
+        jRadioButtonMenuItem6.setText("Menu");
+        jRadioButtonMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem6);
 
         jMenuBar1.add(jMenu1);
 
@@ -1104,6 +1114,19 @@ public class PhieuXuat extends javax.swing.JFrame {
            System.out.println(io);
        }
     }//GEN-LAST:event_jRadioButtonMenuItem4ActionPerformed
+
+    private void jRadioButtonMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem6ActionPerformed
+        if(quyen==1){
+            AdminView adv=new AdminView();
+            adv.setVisible(true);
+            this.dispose();
+        }
+        else{
+            NhanVienView nvv=new NhanVienView();
+            nvv.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jRadioButtonMenuItem6ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1175,6 +1198,7 @@ public class PhieuXuat extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
