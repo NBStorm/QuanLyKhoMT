@@ -686,6 +686,7 @@ public class PhieuXuat extends javax.swing.JFrame {
     }//GEN-LAST:event_tblPXMousePressed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        
         int row=0;
         try{
            Connection conn=DBConnection.getConnection();
